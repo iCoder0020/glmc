@@ -71,15 +71,15 @@ inline void glmc_mat3f_inverse(mat3f dest, mat3f src)
 	mat3f_det_inv = 1.0f/(glmc_mat3f_determinant(src));
 
 	dest[0][0] = (src[1][1]*src[2][2] - src[2][1]*src[1][2])*mat3f_det_inv;
-	dest[0][1] = -1.0f*(src[1][0]*src[2][2] - src[2][0]*src[1][2])*mat3f_det_inv;
-	dest[0][2] = (src[1][0]*src[2][1] - src[2][0]*src[1][1])*mat3f_det_inv;
+	dest[0][1] = -1.0f*(src[0][1]*src[2][2] - src[2][1]*src[0][2])*mat3f_det_inv;
+	dest[0][2] = (src[0][1]*src[1][2] - src[1][1]*src[0][2])*mat3f_det_inv;
 
-	dest[1][0] = -1.0f*(src[0][1]*src[2][2] - src[2][1]*src[0][2])*mat3f_det_inv;
+	dest[1][0] = -1.0f*(src[1][0]*src[2][2] - src[2][0]*src[1][2])*mat3f_det_inv;
 	dest[1][1] = (src[0][0]*src[2][2] - src[2][0]*src[0][2])*mat3f_det_inv;
-	dest[1][2] = -1.0f*(src[0][0]*src[2][1] - src[2][0]*src[0][1])*mat3f_det_inv;
+	dest[1][2] = -1.0f*(src[0][0]*src[1][2] - src[1][0]*src[0][2])*mat3f_det_inv;
 
-	dest[2][0] = (src[0][1]*src[1][2] - src[1][1]*src[0][2])*mat3f_det_inv;
-	dest[2][1] = -1.0f*(src[0][0]*src[1][2] - src[1][0]*src[0][2])*mat3f_det_inv;
+	dest[2][0] = (src[1][0]*src[2][1] - src[2][0]*src[1][1])*mat3f_det_inv;
+	dest[2][1] = -1.0f*(src[0][0]*src[2][1] - src[2][0]*src[0][1])*mat3f_det_inv;
 	dest[2][2] = (src[0][0]*src[1][1] - src[1][0]*src[0][1])*mat3f_det_inv;	
 }
 
@@ -179,15 +179,15 @@ inline void glmc_mat3f_sub_dest(mat3f src_dest, mat3f src_b)
 inline void glmc_mat3f_mul(mat3f dest, mat3f src_a, mat3f src_b)
 {
 	dest[0][0] = (src_a[0][0]*src_b[0][0] + src_a[1][0]*src_b[0][1] + src_a[2][0]*src_b[0][2]);
-	dest[0][1] = (src_a[0][0]*src_b[1][0] + src_a[1][0]*src_b[1][1] + src_a[2][0]*src_b[1][2]);
-	dest[0][2] = (src_a[0][0]*src_b[2][0] + src_a[1][0]*src_b[2][1] + src_a[2][0]*src_b[2][2]);
+	dest[0][1] = (src_a[0][1]*src_b[0][0] + src_a[1][1]*src_b[0][1] + src_a[2][1]*src_b[0][2]);
+	dest[0][2] = (src_a[0][2]*src_b[0][0] + src_a[1][2]*src_b[0][1] + src_a[2][2]*src_b[0][2]);
 
-	dest[1][0] = (src_a[0][1]*src_b[0][0] + src_a[1][1]*src_b[0][1] + src_a[2][1]*src_b[0][2]);
+	dest[1][0] = (src_a[0][0]*src_b[1][0] + src_a[1][0]*src_b[1][1] + src_a[2][0]*src_b[1][2]);
 	dest[1][1] = (src_a[0][1]*src_b[1][0] + src_a[1][1]*src_b[1][1] + src_a[2][1]*src_b[1][2]);
-	dest[1][2] = (src_a[0][1]*src_b[2][0] + src_a[1][1]*src_b[2][1] + src_a[2][1]*src_b[2][2]);
+	dest[1][2] = (src_a[0][2]*src_b[1][0] + src_a[1][2]*src_b[1][1] + src_a[2][2]*src_b[1][2]);
 
-	dest[2][0] = (src_a[0][2]*src_b[0][0] + src_a[1][2]*src_b[0][1] + src_a[2][2]*src_b[0][2]);
-	dest[2][1] = (src_a[0][2]*src_b[1][0] + src_a[1][2]*src_b[1][1] + src_a[2][2]*src_b[1][2]);
+	dest[2][0] = (src_a[0][0]*src_b[2][0] + src_a[1][0]*src_b[2][1] + src_a[2][0]*src_b[2][2]);
+	dest[2][1] = (src_a[0][1]*src_b[2][0] + src_a[1][1]*src_b[2][1] + src_a[2][1]*src_b[2][2]);
 	dest[2][2] = (src_a[0][2]*src_b[2][0] + src_a[1][2]*src_b[2][1] + src_a[2][2]*src_b[2][2]);
 }
 inline void glmc_mat3f_mul_dest(mat3f src_dest, mat3f src_b)
@@ -207,15 +207,15 @@ inline void glmc_mat3f_mul_dest(mat3f src_dest, mat3f src_b)
 	temp[2][2] = src_dest[2][2];
 
 	src_dest[0][0] = (temp[0][0]*src_b[0][0] + temp[1][0]*src_b[0][1] + temp[2][0]*src_b[0][2]);
-	src_dest[0][1] = (temp[0][0]*src_b[1][0] + temp[1][0]*src_b[1][1] + temp[2][0]*src_b[1][2]);
-	src_dest[0][2] = (temp[0][0]*src_b[2][0] + temp[1][0]*src_b[2][1] + temp[2][0]*src_b[2][2]);
+	src_dest[0][1] = (temp[0][1]*src_b[0][0] + temp[1][1]*src_b[0][1] + temp[2][1]*src_b[0][2]);
+	src_dest[0][2] = (temp[0][2]*src_b[0][0] + temp[1][2]*src_b[0][1] + temp[2][2]*src_b[0][2]);
 
-	src_dest[1][0] = (temp[0][1]*src_b[0][0] + temp[1][1]*src_b[0][1] + temp[2][1]*src_b[0][2]);
+	src_dest[1][0] = (temp[0][0]*src_b[1][0] + temp[1][0]*src_b[1][1] + temp[2][0]*src_b[1][2]);
 	src_dest[1][1] = (temp[0][1]*src_b[1][0] + temp[1][1]*src_b[1][1] + temp[2][1]*src_b[1][2]);
-	src_dest[1][2] = (temp[0][1]*src_b[2][0] + temp[1][1]*src_b[2][1] + temp[2][1]*src_b[2][2]);
+	src_dest[1][2] = (temp[0][2]*src_b[1][0] + temp[1][2]*src_b[1][1] + temp[2][2]*src_b[1][2]);
 
-	src_dest[2][0] = (temp[0][2]*src_b[0][0] + temp[1][2]*src_b[0][1] + temp[2][2]*src_b[0][2]);
-	src_dest[2][1] = (temp[0][2]*src_b[1][0] + temp[1][2]*src_b[1][1] + temp[2][2]*src_b[1][2]);
+	src_dest[2][0] = (temp[0][0]*src_b[2][0] + temp[1][0]*src_b[2][1] + temp[2][0]*src_b[2][2]);
+	src_dest[2][1] = (temp[0][1]*src_b[2][0] + temp[1][1]*src_b[2][1] + temp[2][1]*src_b[2][2]);
 	src_dest[2][2] = (temp[0][2]*src_b[2][0] + temp[1][2]*src_b[2][1] + temp[2][2]*src_b[2][2]);
 }
 inline void glmc_mat3f_mul_s(mat3f dest, mat3f src_a, float src_b)
@@ -261,17 +261,19 @@ inline void glmc_mat3f_div_dest(mat3f src_dest, mat3f src_b)
 }
 inline void glmc_mat3f_div_s(mat3f dest, mat3f src_a, float src_b)
 {
-	dest[0][0] = src_a[0][0] / src_b;
-	dest[0][1] = src_a[0][1] / src_b;
-	dest[0][2] = src_a[0][2] / src_b;
+	float src_b_inv = 1.0f/(src_b);
+	
+	dest[0][0] = src_a[0][0] * src_b_inv;
+	dest[0][1] = src_a[0][1] * src_b_inv;
+	dest[0][2] = src_a[0][2] * src_b_inv;
 
-	dest[1][0] = src_a[1][0] / src_b;
-	dest[1][1] = src_a[1][1] / src_b;
-	dest[1][2] = src_a[1][2] / src_b;
+	dest[1][0] = src_a[1][0] * src_b_inv;
+	dest[1][1] = src_a[1][1] * src_b_inv;
+	dest[1][2] = src_a[1][2] * src_b_inv;
 
-	dest[2][0] = src_a[2][0] / src_b;
-	dest[2][1] = src_a[2][1] / src_b;
-	dest[2][2] = src_a[2][2] / src_b;
+	dest[2][0] = src_a[2][0] * src_b_inv;
+	dest[2][1] = src_a[2][1] * src_b_inv;
+	dest[2][2] = src_a[2][2] * src_b_inv;
 }
 
 inline void glmc_mat3f_addadd(mat3f dest, mat3f src_a, mat3f src_b)
@@ -306,28 +308,28 @@ inline void glmc_mat3f_subadd(mat3f dest, mat3f src_a, mat3f src_b)
 inline void glmc_mat3f_madd(mat3f dest, mat3f src_a, mat3f src_b)
 {
 	dest[0][0] = dest[0][0] + (src_a[0][0]*src_b[0][0] + src_a[1][0]*src_b[0][1] + src_a[2][0]*src_b[0][2]);
-	dest[0][1] = dest[0][1] + (src_a[0][0]*src_b[1][0] + src_a[1][0]*src_b[1][1] + src_a[2][0]*src_b[1][2]);
-	dest[0][2] = dest[0][2] + (src_a[0][0]*src_b[2][0] + src_a[1][0]*src_b[2][1] + src_a[2][0]*src_b[2][2]);
+	dest[0][1] = dest[0][1] + (src_a[0][1]*src_b[0][0] + src_a[1][1]*src_b[0][1] + src_a[2][1]*src_b[0][2]);
+	dest[0][2] = dest[0][2] + (src_a[0][2]*src_b[0][0] + src_a[1][2]*src_b[0][1] + src_a[2][2]*src_b[0][2]);
 
-	dest[1][0] = dest[1][0] + (src_a[0][1]*src_b[0][0] + src_a[1][1]*src_b[0][1] + src_a[2][1]*src_b[0][2]);
+	dest[1][0] = dest[1][0] + (src_a[0][0]*src_b[1][0] + src_a[1][0]*src_b[1][1] + src_a[2][0]*src_b[1][2]);
 	dest[1][1] = dest[1][1] + (src_a[0][1]*src_b[1][0] + src_a[1][1]*src_b[1][1] + src_a[2][1]*src_b[1][2]);
-	dest[1][2] = dest[1][2] + (src_a[0][1]*src_b[2][0] + src_a[1][1]*src_b[2][1] + src_a[2][1]*src_b[2][2]);
+	dest[1][2] = dest[1][2] + (src_a[0][2]*src_b[1][0] + src_a[1][2]*src_b[1][1] + src_a[2][2]*src_b[1][2]);
 
-	dest[2][0] = dest[2][0] + (src_a[0][2]*src_b[0][0] + src_a[1][2]*src_b[0][1] + src_a[2][2]*src_b[0][2]);
-	dest[2][1] = dest[2][1] + (src_a[0][2]*src_b[1][0] + src_a[1][2]*src_b[1][1] + src_a[2][2]*src_b[1][2]);
+	dest[2][0] = dest[2][0] + (src_a[0][0]*src_b[2][0] + src_a[1][0]*src_b[2][1] + src_a[2][0]*src_b[2][2]);
+	dest[2][1] = dest[2][1] + (src_a[0][1]*src_b[2][0] + src_a[1][1]*src_b[2][1] + src_a[2][1]*src_b[2][2]);
 	dest[2][2] = dest[2][2] + (src_a[0][2]*src_b[2][0] + src_a[1][2]*src_b[2][1] + src_a[2][2]*src_b[2][2]);
 }
 inline void glmc_mat3f_msub(mat3f dest, mat3f src_a, mat3f src_b)
 {
 	dest[0][0] = dest[0][0] - (src_a[0][0]*src_b[0][0] + src_a[1][0]*src_b[0][1] + src_a[2][0]*src_b[0][2]);
-	dest[0][1] = dest[0][1] - (src_a[0][0]*src_b[1][0] + src_a[1][0]*src_b[1][1] + src_a[2][0]*src_b[1][2]);
-	dest[0][2] = dest[0][2] - (src_a[0][0]*src_b[2][0] + src_a[1][0]*src_b[2][1] + src_a[2][0]*src_b[2][2]);
+	dest[0][1] = dest[0][1] - (src_a[0][1]*src_b[0][0] + src_a[1][1]*src_b[0][1] + src_a[2][1]*src_b[0][2]);
+	dest[0][2] = dest[0][2] - (src_a[0][2]*src_b[0][0] + src_a[1][2]*src_b[0][1] + src_a[2][2]*src_b[0][2]);
 
-	dest[1][0] = dest[1][0] - (src_a[0][1]*src_b[0][0] + src_a[1][1]*src_b[0][1] + src_a[2][1]*src_b[0][2]);
+	dest[1][0] = dest[1][0] - (src_a[0][0]*src_b[1][0] + src_a[1][0]*src_b[1][1] + src_a[2][0]*src_b[1][2]);
 	dest[1][1] = dest[1][1] - (src_a[0][1]*src_b[1][0] + src_a[1][1]*src_b[1][1] + src_a[2][1]*src_b[1][2]);
-	dest[1][2] = dest[1][2] - (src_a[0][1]*src_b[2][0] + src_a[1][1]*src_b[2][1] + src_a[2][1]*src_b[2][2]);
+	dest[1][2] = dest[1][2] - (src_a[0][2]*src_b[1][0] + src_a[1][2]*src_b[1][1] + src_a[2][2]*src_b[1][2]);
 
-	dest[2][0] = dest[2][0] - (src_a[0][2]*src_b[0][0] + src_a[1][2]*src_b[0][1] + src_a[2][2]*src_b[0][2]);
-	dest[2][1] = dest[2][1] - (src_a[0][2]*src_b[1][0] + src_a[1][2]*src_b[1][1] + src_a[2][2]*src_b[1][2]);
+	dest[2][0] = dest[2][0] - (src_a[0][0]*src_b[2][0] + src_a[1][0]*src_b[2][1] + src_a[2][0]*src_b[2][2]);
+	dest[2][1] = dest[2][1] - (src_a[0][1]*src_b[2][0] + src_a[1][1]*src_b[2][1] + src_a[2][1]*src_b[2][2]);
 	dest[2][2] = dest[2][2] - (src_a[0][2]*src_b[2][0] + src_a[1][2]*src_b[2][1] + src_a[2][2]*src_b[2][2]);
 }
