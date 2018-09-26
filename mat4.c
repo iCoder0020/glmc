@@ -491,3 +491,95 @@ inline void glmc_mat4f_msub(mat4f dest, mat4f src_a, mat4f src_b)
 	dest[3][2] = dest[3][2] - (src_a[0][2]*src_b[3][0] + src_a[1][2]*src_b[3][1] + src_a[2][2]*src_b[3][2] + src_a[3][2]*src_b[3][3]);
 	dest[3][3] = dest[3][3] - (src_a[0][3]*src_b[3][0] + src_a[1][3]*src_b[3][1] + src_a[2][3]*src_b[3][2] + src_a[3][3]*src_b[3][3]);	
 }
+
+inline void glmc_mat4f_identity(mat4f dest)
+{
+	dest[0][0] = 1.0f;
+	dest[0][1] = 0;
+	dest[0][2] = 0;
+	dest[0][3] = 0;
+
+	dest[1][0] = 0;
+	dest[1][1] = 1.0f;
+	dest[1][2] = 0;
+	dest[1][3] = 0;
+
+	dest[2][0] = 0;
+	dest[2][1] = 0;
+	dest[2][2] = 1.0f;
+	dest[2][3] = 0;
+
+	dest[3][0] = 0;
+	dest[3][1] = 0;
+	dest[3][2] = 0;
+	dest[3][3] = 1.0f;
+}
+inline void glmc_mat4f_scale(mat4f dest, float src_sx, float src_sy, float src_sz)
+{
+	dest[0][0] = src_sx;
+	dest[0][1] = 0;
+	dest[0][2] = 0;
+	dest[0][3] = 0;
+
+	dest[1][0] = 0;
+	dest[1][1] = src_sy;
+	dest[1][2] = 0;
+	dest[1][3] = 0;
+
+	dest[2][0] = 0;
+	dest[2][1] = 0;
+	dest[2][2] = src_sz;
+	dest[2][3] = 0;
+
+	dest[3][0] = 0;
+	dest[3][1] = 0;
+	dest[3][2] = 0;
+	dest[3][3] = 1.0f;
+}
+inline void glmc_mat4f_translation(mat4f dest, float src_t1, float src_t2, float src_t3)
+{
+	dest[0][0] = 1.0f;
+	dest[0][1] = 0;
+	dest[0][2] = 0;
+	dest[0][3] = 0;
+
+	dest[1][0] = 0;
+	dest[1][1] = 1.0f;
+	dest[1][2] = 0;
+	dest[1][3] = 0;
+
+	dest[2][0] = 0;
+	dest[2][1] = 0;
+	dest[2][2] = 1.0f;
+	dest[2][3] = 0;
+
+	dest[3][0] = src_t1;
+	dest[3][1] = src_t2;
+	dest[3][2] = src_t3;
+	dest[3][3] = 1.0f;
+}
+inline void glmc_mat4f_rotation(mat4f dest, float src_ux, float src_uy, float src_uz, float theta)
+{
+	float c = cos(theta);
+	float s = sin(theta);
+
+	dest[0][0] = c + src_ux*src_ux*(1-c);
+	dest[0][1] = src_uy*src_ux*(1-c) + src_uz*s;
+	dest[0][2] = src_uz*src_ux*(1-c) - src_uy*s;
+	dest[0][3] = 0;
+
+	dest[1][0] = src_ux*src_uy*(1-c) - src_uz*s;
+	dest[1][1] = c + src_uy*src_uy*(1-c);
+	dest[1][2] = src_uz*src_uy*(1-c) + src_ux*(s);
+	dest[1][3] = 0;
+
+	dest[2][0] = src_ux*src_uz*(1-c) + src_uy*s;
+	dest[2][1] = src_uy*src_uz*(1-c) - src_ux*s;
+	dest[2][2] = c + src_uz*src_uz*(1-c);
+	dest[2][3] = 0;
+
+	dest[3][0] = 0;
+	dest[3][1] = 0;
+	dest[3][2] = 0;
+	dest[3][3] = 1.0f;
+}

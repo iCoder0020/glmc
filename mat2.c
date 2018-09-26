@@ -215,3 +215,45 @@ inline void glmc_mat2f_msub(mat2f dest, mat2f src_a, mat2f src_b)
 	dest[1][0] = dest[1][0] - (src_a[0][0]*src_b[1][0] + src_a[1][0]*src_b[1][1]);
 	dest[1][1] = dest[1][1] - (src_a[0][1]*src_b[1][0] + src_a[1][1]*src_b[1][1]);
 }
+
+inline void glmc_mat2f_identity(mat2f dest)
+{
+	dest[0][0] = 1.0f;
+	dest[0][1] = 0;
+	dest[0][2] = 0;
+
+	dest[1][0] = 0;
+	dest[1][1] = 1.0f;
+	dest[1][2] = 0;
+
+	dest[2][0] = 0;
+	dest[2][1] = 0;
+	dest[2][2] = 1.0f;
+}
+inline void glmc_mat2f_scale(mat2f dest, float src_sx)
+{
+	dest[0][0] = src_sx;
+	dest[0][1] = 0;
+
+	dest[1][0] = 0;
+	dest[1][1] = 1.0f;
+}
+inline void glmc_mat2f_translation(mat2f dest, float src_t1)
+{
+	dest[0][0] = 1.0f;
+	dest[0][1] = 0;
+
+	dest[1][0] = src_t1;
+	dest[1][1] = 1.0f;
+}
+inline void glmc_mat2f_rotation(mat2f dest, float theta)
+{
+	float c = cos(theta);
+	float s = sin(theta);
+
+	dest[0][0] = c;
+	dest[0][1] = s;
+
+	dest[1][0] = -1.0f*s;
+	dest[1][1] = c;
+}

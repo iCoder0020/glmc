@@ -29,13 +29,19 @@
 #include <stdint.h>
 #include <math.h>
 
-// types
+// vector-types
 
 typedef float vec2f[2];
 typedef float vec3f[3];
 typedef float vec4f[4];
 
-// vec2f
+// matrix-types
+
+typedef float mat2f[2][2];
+typedef float mat3f[3][3];
+typedef float mat4f[4][4];
+
+// vec2f-operations
 
 void glmc_vec2f_from_3f(vec2f dest, vec3f src);
 void glmc_vec2f_from_4f(vec2f dest, vec4f src);
@@ -71,7 +77,7 @@ void glmc_vec2f_msub(vec2f dest, vec2f src_a, vec2f src_b); // dest -= src_a * s
 
 float glmc_vec2f_dot(vec2f src_a, vec2f src_b);
 
-// vec3f
+// vec3f-operations
 
 void glmc_vec3f_from_2f(vec3f dest, vec2f src_a, float src_b);
 void glmc_vec3f_from_4f(vec3f dest, vec4f src);
@@ -108,7 +114,7 @@ void glmc_vec3f_msub(vec3f dest, vec3f src_a, vec3f src_b); // dest -= src_a * s
 float glmc_vec3f_dot(vec3f src_a, vec3f src_b);
 void  glmc_vec3f_cross(vec3f dest, vec3f src_a, vec3f src_b);
 
-// vec4f
+// vec4f-operations
 
 void glmc_vec4f_from_2f(vec4f dest, vec2f src_a, float src_b, float src_c);
 void glmc_vec4f_from_3f(vec4f dest, vec3f src_a, float src_b);
@@ -146,13 +152,9 @@ float glmc_vec4f_dot(vec4f src_a, vec4f src_b);
 
 
 
-// types
 
-typedef float mat2f[2][2];
-typedef float mat3f[3][3];
-typedef float mat4f[4][4];
 
-//mat2f
+//mat2f-operations
 
 void glmc_mat2f_transpose(mat2f dest, mat2f src);
 void glmc_mat2f_transpose_dest(mat2f src_dest);
@@ -184,7 +186,15 @@ void glmc_mat2f_subadd(mat2f dest, mat2f src_a, mat2f src_b);
 void glmc_mat2f_madd(mat2f dest, mat2f src_a, mat2f src_b);
 void glmc_mat2f_msub(mat2f dest, mat2f src_a, mat2f src_b);
 
-//mat3f
+//mat2f-special matrices
+
+void glmc_mat2f_identity(mat2f dest);
+void glmc_mat2f_scale(mat2f dest, float src_sx);
+void glmc_mat2f_translation(mat2f dest, float src_t1);
+void glmc_mat2f_rotation(mat2f dest, float theta);
+
+
+//mat3f-operations
 
 void glmc_mat3f_transpose(mat3f dest, mat3f src);
 void glmc_mat3f_transpose_dest(mat3f src_dest);
@@ -216,7 +226,15 @@ void glmc_mat3f_subadd(mat3f dest, mat3f src_a, mat3f src_b);
 void glmc_mat3f_madd(mat3f dest, mat3f src_a, mat3f src_b);
 void glmc_mat3f_msub(mat3f dest, mat3f src_a, mat3f src_b);
 
-//mat4f
+//mat3f-special matrices
+
+void glmc_mat3f_identity(mat3f dest);
+void glmc_mat3f_scale(mat3f dest, float src_sx, float src_sy);
+void glmc_mat3f_translation(mat3f dest, float src_t1, float src_t2);
+void glmc_mat3f_rotation(mat3f dest, float src_ux, float src_uy, float src_uz, float theta);
+
+
+//mat4f-operations
 
 void glmc_mat4f_transpose(mat4f dest, mat4f src);
 void glmc_mat4f_transpose_dest(mat4f src_dest);
@@ -248,12 +266,19 @@ void glmc_mat4f_subadd(mat4f dest, mat4f src_a, mat4f src_b);
 void glmc_mat4f_madd(mat4f dest, mat4f src_a, mat4f src_b);
 void glmc_mat4f_msub(mat4f dest, mat4f src_a, mat4f src_b);
 
-//mat_vec
+//mat4f-special matrices
+
+void glmc_mat4f_identity(mat4f dest);
+void glmc_mat4f_scale(mat4f dest, float src_sx, float src_sy, float src_sz);
+void glmc_mat4f_translation(mat4f dest, float src_t1, float src_t2, float src_t3);
+void glmc_mat4f_rotation(mat4f dest, float src_ux, float src_uy, float src_uz, float theta);
+
+//matrix-vector operations
 
 void glmc_mat2f_mul_vec2f(vec2f dest, mat2f mat, vec2f vec);
-
 void glmc_mat3f_mul_vec3f(vec3f dest, mat3f mat, vec3f vec);
-
 void glmc_mat4f_mul_vec4f(vec4f dest, mat4f mat, vec4f vec);
+
+
 
 #endif /* _GLMC_H */
