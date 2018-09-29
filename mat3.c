@@ -25,6 +25,54 @@
 
 #include "glmc.h"
 
+inline void glmc_mat3f_input(mat3f dest)
+{
+	scanf("%f", &dest[0][0]);
+	scanf("%f", &dest[1][0]);
+	scanf("%f", &dest[2][0]);
+
+	scanf("%f", &dest[0][1]);
+	scanf("%f", &dest[1][1]);
+	scanf("%f", &dest[2][1]);
+
+	scanf("%f", &dest[0][2]);
+	scanf("%f", &dest[1][2]);
+	scanf("%f", &dest[2][2]);
+
+	#ifdef NORMALISE 
+		glmc_mat3f_normlize_dest(dest);
+	#endif
+}
+
+inline void glmc_convert_3f_to_1D(oneD3f dest, mat3f src)
+{
+	dest[0] = src[0][0];
+	dest[1] = src[1][0];
+	dest[2] = src[2][0];
+
+	dest[3] = src[0][1];
+	dest[4] = src[1][1];
+	dest[5] = src[2][1];
+
+	dest[6] = src[0][2];
+	dest[7] = src[1][2];
+	dest[8] = src[2][2];
+}
+inline void glmc_convert_1D_to_3f(mat3f dest, oneD3f src)
+{
+	dest[0][0] = src[0];
+	dest[1][0] = src[1];
+	dest[2][0] = src[2];
+
+	dest[0][1] = src[3];
+	dest[1][1] = src[4];
+	dest[2][1] = src[5];
+
+	dest[0][2] = src[6];
+	dest[1][2] = src[7];
+	dest[2][2] = src[8];
+}
+
 inline void glmc_mat3f_transpose(mat3f dest, mat3f src)
 {
 	dest[0][0] = src[0][0];

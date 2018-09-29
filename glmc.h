@@ -27,6 +27,7 @@
 #define _GLMC_H
 
 #include <stdint.h>
+#include <stdio.h>
 #include <math.h>
 
 //vector-types
@@ -40,6 +41,12 @@ typedef float vec4f[4];
 typedef float mat2f[2][2];
 typedef float mat3f[3][3];
 typedef float mat4f[4][4];
+
+//1-D matrix representations
+
+typedef float oneD2f[4];
+typedef float oneD3f[9];
+typedef float oneD4f[16];
 
 //vec2f-operations
 
@@ -161,6 +168,11 @@ float glmc_vec4f_dot(vec4f src_a, vec4f src_b);
 
 //mat2f-operations
 
+void glmc_mat2f_input(mat2f dest);
+
+void glmc_convert_2f_to_1D(oneD2f dest, mat2f src);
+void glmc_convert_1D_to_2f(mat2f dest, oneD2f src);
+
 void glmc_mat2f_transpose(mat2f dest, mat2f src);
 void glmc_mat2f_transpose_dest(mat2f src_dest);
 
@@ -198,6 +210,11 @@ void glmc_mat2f_scale(mat2f dest, float src_sx);
 
 
 //mat3f-operations
+
+void glmc_mat3f_input(mat3f dest);
+
+void glmc_convert_3f_to_1D(oneD3f dest, mat3f src);
+void glmc_convert_1D_to_3f(mat3f dest, oneD3f src);
 
 void glmc_mat3f_transpose(mat3f dest, mat3f src);
 void glmc_mat3f_transpose_dest(mat3f src_dest);
@@ -237,6 +254,11 @@ void glmc_mat3f_translation(mat3f dest, float src_t1, float src_t2);
 
 
 //mat4f-operations
+
+void glmc_mat4f_input(mat4f dest);
+
+void glmc_convert_4f_to_1D(oneD4f dest, mat4f src);
+void glmc_convert_1D_to_4f(mat4f dest, oneD4f src);
 
 void glmc_mat4f_transpose(mat4f dest, mat4f src);
 void glmc_mat4f_transpose_dest(mat4f src_dest);

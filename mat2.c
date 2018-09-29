@@ -25,6 +25,36 @@
 
 #include "glmc.h"
 
+inline void glmc_mat2f_input(mat2f dest)
+{
+	scanf("%f", &dest[0][0]);
+	scanf("%f", &dest[1][0]);
+
+	scanf("%f", &dest[0][1]);
+	scanf("%f", &dest[1][1]);
+
+	#ifdef NORMALISE 
+		glmc_mat2f_normlize_dest(dest);
+	#endif
+}
+
+inline void glmc_convert_2f_to_1D(oneD2f dest, mat2f src)
+{
+	dest[0] = src[0][0];
+	dest[1] = src[1][0];
+
+	dest[2] = src[0][1];
+	dest[3] = src[1][1];
+}
+inline void glmc_convert_1D_to_2f(mat2f dest, oneD2f src)
+{
+	dest[0][0] = src[0];
+	dest[1][0] = src[1];
+
+	dest[0][1] = src[2];
+	dest[1][1] = src[3];
+}
+
 inline void glmc_mat2f_transpose(mat2f dest, mat2f src)
 {
 	dest[0][0] = src[0][0];
