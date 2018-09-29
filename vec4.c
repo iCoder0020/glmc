@@ -214,3 +214,13 @@ inline float glmc_vec4f_dot(vec4f src_a, vec4f src_b)
 	vec4f_dot = (src_a[0]*src_b[0]) + (src_a[1]*src_b[1]) + (src_a[2]*src_b[2]) + (src_a[3]*src_b[3]);
 	return vec4f_dot;
 }
+
+inline void glmc_vec4f_reflection(vec4f dest, vec4f src, vec4f normal)
+{
+	glmc_vec4f_normlize_dest(normal);
+	
+}
+inline void glmc_vec4f_refraction(vec4f dest, vec4f src, vec4f normal, float src_mu)
+{
+
+}

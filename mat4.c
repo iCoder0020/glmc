@@ -110,7 +110,6 @@ inline void glmc_mat4f_inverse(mat4f dest, mat4f src)
 	dest[3][1] = ((src[0][0]*((src[2][1]*src[3][2])-(src[3][1]*src[2][2]))) - (src[2][0]*((src[0][1]*src[3][2])-(src[3][1]*src[0][2]))) + (src[3][0]*((src[0][1]*src[2][2])-(src[2][1]*src[0][2]))))*mat4f_det_inv;
 	dest[3][2] = -1.0f*((src[0][0]*((src[1][1]*src[3][2])-(src[3][1]*src[1][2]))) - (src[1][0]*((src[0][1]*src[3][2])-(src[3][1]*src[0][2]))) + (src[3][0]*((src[0][1]*src[1][2])-(src[1][1]*src[0][2]))))*mat4f_det_inv;
 	dest[3][3] = ((src[0][0]*((src[1][1]*src[2][2])-(src[2][1]*src[1][2]))) - (src[1][0]*((src[0][1]*src[2][2])-(src[2][1]*src[0][2]))) + (src[2][0]*((src[0][1]*src[1][2])-(src[1][1]*src[0][2]))))*mat4f_det_inv;
-	
 }
 
 inline void glmc_mat4f_normlize(mat4f dest, mat4f src)
@@ -581,5 +580,52 @@ inline void glmc_mat4f_rotation(mat4f dest, float src_ux, float src_uy, float sr
 	dest[3][0] = 0;
 	dest[3][1] = 0;
 	dest[3][2] = 0;
+	dest[3][3] = 1.0f;
+}
+
+inline void glmc_mat4f_perspective_projection(mat4f dest, float src_fovy, float src_aspect, float src_zNear, float src_zFar)
+{
+	float tanHalfFovy = tan(src_fovy/2);
+
+	dest[0][0] = 1.0f/(src_aspect*tanHalfFovy);
+	dest[0][1] = 0;
+	dest[0][2] = 0;
+	dest[0][3] = 0;
+
+	dest[1][0] = 0;
+	dest[1][1] = 1.0f/tanHalfFovy;
+	dest[1][2] = 0;
+	dest[1][3] = 0;
+
+	dest[2][0] = 0;
+	dest[2][1] = 0;
+	dest[2][2] = src_zFar/(src_zFar - src_zNear);
+	dest[2][3] = 1.0f;
+
+	dest[3][0] = 0;
+	dest[3][1] = 0;
+	dest[3][2] = 0;
+	dest[3][3] = -1.0f*(src_zFar*src_zNear)/(src_zFar - src_zNear);
+}
+inline void glmc_mat4f_ortho_projection(mat4f dest, float src_left, float src_right, float src_bottom, float src_top)
+{
+	dest[0][0] = 2.0f/(src_right - src_left);
+	dest[0][1] = 1.0f;
+	dest[0][2] = 1.0f;
+	dest[0][3] = 1.0f;
+
+	dest[1][0] = 1.0f;
+	dest[1][1] = 2.0f/(src_top - src_bottom);
+	dest[1][2] = 1.0f;
+	dest[1][3] = 1.0f;
+
+	dest[2][0] = 1.0f;
+	dest[2][1] = 1.0f;
+	dest[2][2] = 1.0f;
+	dest[2][3] = 1.0f;
+
+	dest[3][0] = -1.0f*(src_right + src_left)/(src_right - src_left);
+	dest[3][1] = -1.0f*(src_top + src_bottom)/(src_top - src_bottom);
+	dest[3][2] = 1.0f;
 	dest[3][3] = 1.0f;
 }

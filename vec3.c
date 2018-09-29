@@ -200,3 +200,33 @@ inline void glmc_vec3f_cross(vec3f dest, vec3f src_a, vec3f src_b)
 	dest[1] = src_a[2]*src_b[0] - src_a[0]*src_b[2];
 	dest[2] = src_a[0]*src_b[1] - src_a[1]*src_b[0];
 }
+
+inline void glmc_vec3f_reflection(vec3f dest, vec3f src, vec3f normal)
+{
+	glmc_vec3f_normlize_dest(normal);
+
+	float vec3f_dot = 2*glmc_vec3f_dot(src, normal);
+	vec3f temp;
+
+	glmc_vec3f_mul_s(temp, src, vec3f_dot);
+
+	glmc_vec3f_sub(dest, src, temp);
+}
+inline void glmc_vec3f_refraction(vec3f dest, vec3f src, vec3f normal, float src_mu)
+{
+	glmc_vec3f_normlize_dest(normal);
+	glmc_vec3f_normlize_dest(src);
+	
+	float src_mu_inv = 1.0f/src_mu;
+	vec3f temp1, temp2, temp3, temp4, temp5, temp6;
+	
+	glmc_vec3f_cross(temp1, src, normal);
+	glmc_vec3f_cross(temp2, normal, temp1);
+	glmc_vec3f_cross(temp3, normal, src);
+	float temp7 = sqrtf(1 - src_mu_inv*src_mu_inv*glmc_vec3f_dot(temp3, temp3));
+
+	glmc_vec3f_mul_s(temp5, temp2, src_mu_inv);
+	glmc_vec3f_mul_s(temp6, normal, temp7);
+
+	glmc_vec3f_sub(dest, temp5, temp6);
+}

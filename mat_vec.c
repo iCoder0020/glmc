@@ -45,3 +45,4 @@ inline void glmc_mat4f_mul_vec4f(vec4f dest, mat4f mat, vec4f vec)
 	dest[2] = mat[0][2]*vec[0] + mat[1][2]*vec[1] + mat[2][2]*vec[2] + mat[3][2]*vec[3];
 	dest[3] = mat[0][3]*vec[0] + mat[1][3]*vec[1] + mat[2][3]*vec[2] + mat[3][3]*vec[3];
 }
+

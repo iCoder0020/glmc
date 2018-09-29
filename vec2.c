@@ -174,3 +174,4 @@ inline float glmc_vec2f_dot(vec2f src_a, vec2f src_b)
 	vec2f_dot = (src_a[0]*src_b[0]) + (src_a[1]*src_b[1]);
 	return vec2f_dot;
 }
+
